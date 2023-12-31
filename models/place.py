@@ -3,7 +3,6 @@
 import models
 from models.base_model import BaseModel, Base
 from os import getenv
-import getenv
 import sqlalchemy
 from sqlalchemy import Column, String, Integer, Float, Table, ForeignKey
 from sqlalchemy.orm import relationship
@@ -13,16 +12,18 @@ if getenv('HBNB_TYPE_STORAGE') == 'db':
     place_amenity = Table('place_amenity', Base.metadata,
                           Column('place_id', String(60),
                                  ForeignKey('places.id'), primary_key=True,
-                                 nullable=False)
+                                 nullable=False),
                           Column('amenity_id', String(60),
                                  ForeignKey('amenities.id'), primary_key=True,
-                                 nullable=False))
+                                 nullable=False), extend_existing=True)
 
 
 class Place(BaseModel, Base):
     """Represents a  Place """
     if getenv('HBNB_TYPE_STORAGE') == 'db':
         __tablename__ = 'places'
+        __table_args__ = {'extend_existing': True}
+        id = Column(String(60), primary_key=True, nullable=False)
         city_id = Column(String(60), ForeignKey("cities.id"),
                          nullable=False)
         user_id = Column(String(60), ForeignKey('users.id'),

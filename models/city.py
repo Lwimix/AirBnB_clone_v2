@@ -12,11 +12,13 @@ class City(BaseModel, Base):
     """the city representation"""
     if getenv('HBNB_TYPE_STORAGE') == 'db':
         __tablename__ = 'cities'
+        __table_args__ = {'extend_existing': True}
         name = Column(String(128), nullable=False)
         state_id = Column(String(60), ForeignKey('states.id'),
                           nullable=False)
         places = relationship("Place", backref="cities",
                               cascade="all, delete-orphan")
+        id = Column(String(60), primary_key=True)
     else:
         name = ""
         state_id = ""

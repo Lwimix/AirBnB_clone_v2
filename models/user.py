@@ -12,6 +12,8 @@ class User(BaseModel, Base):
     """Representation of a user """
     if getenv('HBNB_TYPE_STORAGE') == 'db':
         __tablename__ = 'users'
+        __table_args__ = {'extend_existing': True}
+        id = Column(String(60), primary_key=True, nullable=False)
         email = Column(String(128), nullable=False)
         _password = Column('password', String(128), nullable=False)
         first_name = Column(String(128), nullable=True)

@@ -82,3 +82,7 @@ class FileStorage:
         elif cls is None:
             total = len(self.__objects)
         return total
+
+    def close(self):
+        """Deserializing JSON file to objects"""
+        self.reload(self)

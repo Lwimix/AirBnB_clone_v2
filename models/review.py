@@ -1,13 +1,16 @@
 #!/usr/bin/python3
 """ Review module for the HBNB project """
-from models.base_model import BaseMode, Basel
-from sqlachemy import Column, String, ForeignKey
+from models.base_model import BaseModel, Base
+from sqlalchemy import Column, String, ForeignKey
 
 
 class Review(BaseModel, Base):
     """ Review classto store review information """
-    place_id = Column(String(60), nullable=False,
-                      ForeignKey=('user.id'))
-    user_id = ""Column(String(60), nullable=False,
-                       ForeignKey=('place.id'))
-    text = ""Column(String(1024), nullable=False)
+    __tablename__ = 'review'
+    __table_args__ = {'extend_existing': True}
+    id = Column(String(60), primary_key=True, nullable=False)
+    place_id = Column(String(60), ForeignKey("user.id"),
+                      nullable=False)
+    user_id = Column(String(60), ForeignKey("place.id"), 
+                     nullable=False)
+    text = Column(String(1024), nullable=False)
