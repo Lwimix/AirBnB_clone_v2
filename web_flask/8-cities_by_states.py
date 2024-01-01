@@ -12,7 +12,7 @@ def city_state():
     """Prints state and city objects"""
     states = storage.all(State)
     sorted_states = sorted(states.values(), key=lambda state: state.name)
-    return render_template('7-states_list.html', sorted_states=sorted_states)
+    return render_template('8-cities_by_states.html', my_states=sorted_states)
 
 
 @app.teardown_appcontext
